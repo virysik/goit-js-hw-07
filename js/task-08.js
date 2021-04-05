@@ -17,5 +17,3 @@ boxEl.style.width = '30px';
 boxEl.style.height = '30px';
 
 boxesEl.appendChild(boxEl);
-
-

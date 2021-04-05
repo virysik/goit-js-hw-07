@@ -17,4 +17,4 @@ const ingredientEl = ingredients.map(el => {
 const ingredientListEl = document.querySelector("#ingredients");
 ingredientListEl.prepend(...ingredientEl);
 
-console.log(ingredientListEl);
+//console.log(ingredientListEl);
