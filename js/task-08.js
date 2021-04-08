@@ -4,26 +4,35 @@ const renderBtn = document.querySelector('[data-action="render"]');
 const destroyBtn = document.querySelector('[data-action="destroy"]');
 const boxesEl = document.querySelector('#boxes');
 
+const max = 250;
+const min = 0;
+const createNumber = () => Math.round(Math.random() * (max - min) + min);
+
 const createBoxes = () => {
-    const max = 250;
-    const min = 0;
-    let numR = Math.round(Math.random() * (max - min) + min);
-    let numG = Math.round(Math.random() * (max - min) + min);
-    let numB = Math.round(Math.random() * (max - min) + min);
+   let amount = inputEl.value;
+    let size = 20;
+ 
+    for (let i = 0; i < Number(amount); i += 1) {
+        
+        let r = createNumber();
+        let g = createNumber();
+        let b = createNumber();
+        size += 10;
+        const boxEl = document.createElement('div');
+        boxEl.style.backgroundColor = `rgb(${r},${g},${b})`;
+        boxEl.style.width = `${size}px`;
+        boxEl.style.height = `${size}px`;
 
-    const boxEl = document.createElement('div');
-    boxEl.id = "box";
-    boxEl.style.backgroundColor = `rgb(${numR},${numG},${numB})`;
-    boxEl.style.width = '30px';
-    boxEl.style.height = '30px';
-
-    boxesEl.appendChild(boxEl);
+        boxesEl.appendChild(boxEl);
+    }   
 }
 
-    const onClean = () => {
+    const destroyBoxes = () => {
         boxesEl.innerHTML = ' ';
     };
 
-
 renderBtn.addEventListener('click', createBoxes);
-destroyBtn.addEventListener('click', onClean);
+destroyBtn.addEventListener('click', destroyBoxes);
+
+
+
