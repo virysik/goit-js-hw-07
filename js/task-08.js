@@ -4,34 +4,38 @@ const renderBtn = document.querySelector('[data-action="render"]');
 const destroyBtn = document.querySelector('[data-action="destroy"]');
 const boxesEl = document.querySelector('#boxes');
 
-const max = 250;
-const min = 0;
-const createNumber = () => Math.round(Math.random() * (max - min) + min);
-
-const createBoxes = () => {
-   let amount = inputEl.value;
-    let size = 20;
- 
-    for (let i = 0; i < Number(amount); i += 1) {
-        
-        let r = createNumber();
-        let g = createNumber();
-        let b = createNumber();
-        size += 10;
-        const boxEl = document.createElement('div');
-        boxEl.style.backgroundColor = `rgb(${r},${g},${b})`;
-        boxEl.style.width = `${size}px`;
-        boxEl.style.height = `${size}px`;
-
-        boxesEl.appendChild(boxEl);
-    }   
+function randomizer() {
+    return `rgb(${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)})`
 }
 
-    const destroyBoxes = () => {
-        boxesEl.innerHTML = ' ';
+const createBoxes = (amount) => {
+    let size = 30;
+    let arr = [];
+    destroyBoxes();
+
+    for (let i = 0; i < amount; i += 1) {
+        const boxEl = document.createElement('div');
+        boxEl.style.backgroundColor = randomizer();
+        boxEl.style.width = boxEl.style.height =`${size}px`;
+        arr.push(boxEl);
+        size += 10;
+    }   
+ boxesEl.append(...arr);
+}
+
+const destroyBoxes = () => {
+        boxesEl.innerHTML = '';
+        inputEl.value = '';
     };
 
-renderBtn.addEventListener('click', createBoxes);
+renderBtn.addEventListener('click', () => {
+    if (+inputEl.value <= +inputEl.max) {
+        createBoxes(+inputEl.value);
+        return;
+    }
+    alert("too many boxes");
+});
+
 destroyBtn.addEventListener('click', destroyBoxes);
 
 
